@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Search</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1>Movie Search</h1>
+      <!-- Search Form -->
+      <form action="/search" method="POST">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search for a movie or TV show"
+            name="searchQuery"
+            required
+          />
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <% if (searchResults && searchResults.length > 0) { %> <%
+        searchResults.forEach(result => { %>
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <img
+              src="<%= result.Poster %>"
+              class="card-img-top"
+              alt="<%= result.Title %>"
+            />
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= result.Title %> (<%= result.Year %>)
+              </h5>
+              <p class="card-text"><%= result.Type %></p>
+              <a
+                href="/addFavorite?title=<%= result.Title %>&year=<%= result.Year %>&type=<%= result.Type %>&poster=<%= result.Poster %>"
+                class="btn btn-success"
+                >Add to Favorites</a
+              >
+            </div>
+          </div>
+        </div>
+        <% }); %> <% } else if (searchResults && searchResults.length === 0) {
+        %>
+        <p>No results found.</p>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
